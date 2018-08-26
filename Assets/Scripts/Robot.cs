@@ -8,6 +8,8 @@ public class Robot : MonoBehaviour {
     public float SamplingDistance;
     public float LearningRate;
     public float DistanceThreshold;
+    public GameObject target;
+    public float[] angles;
 
     public Vector3 ForwardKinematics(float[] angles)
     {
@@ -70,11 +72,11 @@ public class Robot : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        angles = new float[Joints.Length];
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        InverseKinematics(target.transform.position, angles);
 	}
 }
