@@ -5,6 +5,9 @@ using UnityEngine;
 public class Robot : MonoBehaviour {
 
     public RobotJoint[] Joints;
+    public float SamplingDistance;
+    public float LearningRate;
+    public float DistanceThreshold;
 
     public Vector3 ForwardKinematics(float[] angles)
     {
@@ -26,6 +29,43 @@ public class Robot : MonoBehaviour {
     {
         Vector3 point = ForwardKinematics(angles);
         return Vector3.Distance(point, target);
+    }
+
+    public float PartialGradient(Vector3 target, float[] angles, int i)
+    {
+        float angle = angles[i];
+
+        // Gradient: [F(x + SamplingDistance) - F(x)] / h
+        float f_x = DistanceFromTarget(target, angles);
+
+        angles[i] += SamplingDistance;
+        float f_x_plus_d = DistanceFromTarget(target, angles);
+
+        float gradient = (f_x_plus_d - f_x) / SamplingDistance;
+
+        angles[i] = angle;
+
+        return gradient;
+    }
+
+    public void InverseKinematics(Vector3 target, float[] angles)
+    {
+        if(DistanceFromTarget(target, angles) < DistanceThreshold)
+        {
+            return;
+        }
+
+        for (int i = Joints.Length - 1; i >= 0; i--)
+        {
+            float gradient = PartialGradient(target, angles, i);
+            angles[i] -= LearningRate * gradient;
+
+            if(DistanceFromTarget(target, angles) < DistanceThreshold)
+            {
+                return;
+            }
+
+        }
     }
 
 	// Use this for initialization
