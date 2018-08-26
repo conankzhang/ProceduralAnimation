@@ -22,6 +22,12 @@ public class Robot : MonoBehaviour {
         return prevPoint;
     }
 
+    public float DistanceFromTarget(Vector3 target, float[] angles)
+    {
+        Vector3 point = ForwardKinematics(angles);
+        return Vector3.Distance(point, target);
+    }
+
 	// Use this for initialization
 	void Start () {
 		
