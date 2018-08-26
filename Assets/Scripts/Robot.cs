@@ -62,6 +62,8 @@ public class Robot : MonoBehaviour {
             float gradient = PartialGradient(target, angles, i);
             angles[i] -= LearningRate * gradient;
 
+            angles[i] = Mathf.Clamp(angles[i], Joints[i].MinAngle, Joints[i].MaxAngle);
+
             if(DistanceFromTarget(target, angles) < DistanceThreshold)
             {
                 return;
