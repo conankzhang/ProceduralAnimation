@@ -207,9 +207,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Joints:
   - {fileID: 2145878040}
-  SamplingDistance: 2.7
-  LearningRate: 1.33
-  DistanceThreshold: 1.88
+  SamplingDistance: 0.01
+  LearningRate: 25
+  DistanceThreshold: 0.1
   target: {fileID: 1535718499}
   angles: []
 --- !u!4 &219476302
@@ -414,7 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c7892c0738253545908a23bfa2829d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Axis: {x: 0, y: 0, z: 0}
+  Axis: {x: 0, y: 1, z: 0}
   StartOffset: {x: 0, y: 0, z: 0}
 --- !u!65 &2145878041
 BoxCollider:
