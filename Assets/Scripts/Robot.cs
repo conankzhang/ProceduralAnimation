@@ -14,7 +14,7 @@ public class Robot : MonoBehaviour {
     public Vector3 ForwardKinematics(float[] angles)
     {
         Vector3 prevPoint = Joints[0].transform.position;
-        Quaternion rotation = Quaternion.identity;
+        Quaternion rotation = transform.rotation;
 
         for (int i = 1; i < Joints.Length; i++)
         {
@@ -68,7 +68,11 @@ public class Robot : MonoBehaviour {
             {
                 return;
             }
+        }
 
+        for (int i = 0; i < Joints.Length - 1; i++)
+        {
+            Joints[i].MoveArm(angles[i]);
         }
     }
 
